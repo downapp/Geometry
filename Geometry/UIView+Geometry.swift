@@ -1,20 +1,12 @@
 //
-//  UIView+Geometry.swift
-//  Geometry
-//
-//  Created by Tuomas Artman on 7.9.2014.
-//  Copyright (c) 2014 Tuomas Artman. All rights reserved.
+//  Copyright (c) 2014-2017 Tuomas Artman. All rights reserved.
 //
 
 import CoreGraphics
 import Foundation
 import UIKit
 
-
-
-
 /// Extends CGRect with helper properties for positioning and setting dimensions
-
 extension CGRect: ExpressibleByStringLiteral {
     
     /// The top coordinate of the rect.
@@ -98,12 +90,12 @@ extension CGRect: ExpressibleByStringLiteral {
         if value[value.startIndex] != "{" {
             let comp = value.components(separatedBy: ",")
             if comp.count == 4 {
-                rect = CGRectFromString("{{\(comp[0]),\(comp[1])}, {\(comp[2]), \(comp[3])}}")
+                rect = NSCoder.cgRect(for: "{{\(comp[0]),\(comp[1])}, {\(comp[2]), \(comp[3])}}")
             } else {
                 rect = CGRect.zero
             }
         } else {
-            rect = CGRectFromString(value)
+            rect = NSCoder.cgRect(for: value)
         }
         
         self.size = rect.size;
@@ -129,9 +121,9 @@ extension CGPoint: ExpressibleByStringLiteral {
         
         let point:CGPoint;
         if value[value.startIndex] != "{" {
-            point = CGPointFromString("{\(value)}")
+            point = NSCoder.cgPoint(for: "{\(value)}")
         } else {
-            point = CGPointFromString(value)
+            point = NSCoder.cgPoint(for: value)
         }
         self.x = point.x;
         self.y = point.y;
